@@ -1,0 +1,590 @@
+{
+  "formTitle": "Branch:{{{UP.organization}}}",
+  "type": "object",
+  "dateFormat": "MM/dd/yyyy",
+  "formElements": [
+    {
+      "label": "From Branch Plant",
+      "type": "LabeledTextBox",
+      "serverField": "frombranch",
+      "action": "bind",
+      "validationCondition": [],
+      "isParent": true,
+      "isHide": true,
+      "uiElements": {
+        "order": 51,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "{{{UP.organization}}}",
+      "custom": "ReadAndWrite",
+      "profileData": false,
+      "isDynamicData": true
+    },
+    {
+      "label": "To Branch Plant",
+      "type": "LabeledTextBox",
+      "serverField": "toBranch",
+      "action": "bind",
+      "validationCondition": [],
+      "isParent": true,
+      "isHide": true,
+      "uiElements": {
+        "order": 52,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "{{{UP.organization}}}",
+      "custom": "ReadAndWrite",
+      "profileData": false,
+      "isDynamicData": true
+    },
+    {
+      "label": "G/L Date",
+      "type": "Date",
+      "serverField": "gldate",
+      "action": "bind",
+      "currentDate": true,
+      "validationCondition": [
+        {
+          "conditionCheckOrder": 1,
+          "condition": "NullCheck"
+        }
+      ],
+      "isParent": true,
+      "isHide": true,
+      "uiElements": {
+        "order": 53,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "",
+      "custom": "ReadAndWrite"
+    },
+    {
+      "label": "Transaction date",
+      "type": "Date",
+      "serverField": "transactiondate",
+      "action": "bind",
+      "currentDate": true,
+      "validationCondition": [
+        {
+          "conditionCheckOrder": 1,
+          "condition": "NullCheck"
+        }
+      ],
+      "isParent": true,
+      "isHide": true,
+      "uiElements": {
+        "order": 54,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "",
+      "custom": "ReadAndWrite"
+    },
+    {
+      "label": "Explanation Remarks",
+      "type": "LabeledTextBox",
+      "serverField": "remarks",
+      "action": "bind",
+      "validationCondition": [
+        {
+          "conditionCheckOrder": 1,
+          "condition": "NullCheck"
+        }
+      ],
+      "isParent": true,
+      "isHide": true,
+      "uiElements": {
+        "order": 55,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "",
+      "custom": "ReadAndWrite"
+    },
+    {
+      "label": "grid",
+      "type": "Array",
+      "serverField": "gridData",
+      "isReplicable": true,
+      "isRequired": true,
+      "isHide": false,
+      "action": "Bind",
+      "isParent": true,
+      "gridheaderFields": [
+        {
+          "label": "Barcode Item",
+          "type": "BarCode",
+          "serverField": "barcode",
+          "isgridRecord": false,
+          "action": "BarCodeScan",
+          "removePrefix": "",
+          "removeSuffix": "",
+          "barcodeMessage": "Invalid Item Barcode",
+          "validationCondition": [],
+          "executeChildElement": [
+            {
+              "actionType": "variableRequest",
+              "referenceField": "item1",
+              "variableRequest": {
+                "applicationName": "AtomIQ",
+                "applicationId": "615b2bfefad7c70031cbc6ec",
+                "atomAndVariable": "jde41011allitem.itemdesc",
+                "variableId": 247,
+                "criteria": "barcode = '@@{{barcode}}@@'"
+              }
+            }
+          ],
+          "isRequired": false,
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 1,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite",
+          "profileData": false
+        },
+        {
+          "label": "Item",
+          "isgridRecord": false,
+          "showDefaultValue": true,
+          "type": "dropDown",
+          "id": "item1",
+          "serverField": "item",
+          "action": "OnLoad",
+          "validationCondition": [],
+          "searchAndSelect": true,
+          "isRequired": true,
+          "multiSelect": false,
+          "dynamicDropdown": true,
+          "actionExecute": {
+            "actionType": "variableRequest",
+            "variableRequest": {
+              "applicationName": "AtomIQ",
+              "applicationId": "615b2bfefad7c70031cbc6ec",
+              "atomAndVariable": "jde41031itemava.itemdesc",
+              "variableId": 276,
+              "criteria": "branch = '@@{{frombranch}}@@'"
+            }
+          },
+          "executeChildElement": [
+            {
+              "actionType": "atomRequest",
+              "atomRequest": {
+                "applicationName": "AtomIQ",
+                "applicationId": "615b2bfefad7c70031cbc6ec",
+                "atomIdentifier": "jde41031itemava",
+                "atomId": 103,
+                "criteria": "productdesc = '@@{{item}}@@'",
+                "responseMapping": {
+                  "Item Number": "seconditem"
+                }
+              }
+            }
+          ],
+          "isParent": false,
+          "isHide": false,
+          "uiElements": {
+            "order": 2,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadOnly",
+          "profileData": false
+        },
+        {
+          "label": "Item Number",
+          "isgridRecord": true,
+          "type": "LabeledTextBox",
+          "serverField": "seconditem",
+          "action": "bind",
+          "validationCondition": [],
+          "actionExecute": {},
+          "executeChildElement": [
+            {
+              "actionType": "atomRequest",
+              "atomRequest": {
+                "applicationName": "AtomIQ",
+                "applicationId": "615b2bfefad7c70031cbc6ec",
+                "atomIdentifier": "jde41031itemava",
+                "atomId": 103,
+                "criteria": "productdesc = '@@{{item}}@@'"
+              }
+            }
+          ],
+          "isRequired": true,
+          "isParent": true,
+          "isHide": true,
+          "uiElements": {
+            "order": 3,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite",
+          "profileData": false
+        },
+        {
+          "label": "From Location",
+          "type": "BarCode",
+          "serverField": "location1",
+          "isgridRecord": true,
+          "action": "BarCodeScan",
+          "validationCondition": [],
+          "executeChildElement": [
+            {
+              "actionType": "variableRequest",
+              "referenceField": "item1",
+              "variableRequest": {
+                "applicationName": "AtomIQ",
+                "applicationId": "615b2bfefad7c70031cbc6ec",
+                "atomAndVariable": "jde41011allitem.itemdesc",
+                "variableId": 247,
+                "criteria": "barcode = '@@{{barcode}}@@'"
+              }
+            }
+          ],
+          "isRequired": false,
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 4,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite",
+          "profileData": false
+        },
+        {
+          "label": "Lot Number",
+          "type": "BarCode",
+          "serverField": "fromlot",
+          "isgridRecord": true,
+          "action": "BarCodeScan",
+          "validationCondition": [],
+          "executeChildElement": [
+            {
+              "actionType": "atomRequest",
+              "atomRequest": {
+                "applicationName": "AtomIQ",
+                "applicationId": "615b2bfefad7c70031cbc6ec",
+                "atomIdentifier": "jde41031itemava",
+                "atomId": 103,
+                "criteria": "seconditem = '@@{{seconditem}}@@' and location = '@@{{location1}}@@' and lot = '@@{{fromlot}}@@'",
+                "responseMapping": {
+                  "Quantity Available": "availability"
+                }
+              }
+            }
+          ],
+          "isRequired": false,
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 5,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite",
+          "profileData": false
+        },
+        {
+          "label": "Quantity Available",
+          "isgridRecord": false,
+          "type": "LabeledTextBox",
+          "serverField": "availability",
+          "action": "OnLoad",
+          "validationCondition": [],
+          "isRequired": true,
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 5,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "isDynamicData": false,
+          "custom": "ReadAndWrite"
+        },
+        {
+          "label": "Quantity",
+          "isgridRecord": true,
+          "type": "NumericLabeledTextBox",
+          "serverField": "qty",
+          "action": "bind",
+          "validationCondition": [
+            {
+              "conditionCheckOrder": 1,
+              "condition": "GreaterCheck",
+              "max": "@@{{availability}}@@",
+              "message": "Entered quantity should not be greater than Available Quantity"
+            }
+          ],
+          "isRequired": true,
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 6,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite"
+        },
+        {
+          "label": "UOM",
+          "isgridRecord": false,
+          "showDefaultValue": true,
+          "type": "dropDown",
+          "id": "uom1",
+          "serverField": "uom",
+          "action": "OnLoad",
+          "validationCondition": [],
+          "searchAndSelect": true,
+          "isRequired": true,
+          "multiSelect": false,
+          "dynamicDropdown": true,
+          "actionExecute": {
+            "actionType": "variableRequest",
+            "variableRequest": {
+              "applicationName": "AtomIQ",
+              "applicationId": "615b2bfefad7c70031cbc6ec",
+              "atomAndVariable": "jde41031itemava.uom",
+              "variableId": 365,
+              "criteria": "itemnum = '@@{{seconditem}}@@'"
+            }
+          },
+          "executeChildElement": [],
+          "isParent": false,
+          "isHide": false,
+          "uiElements": {
+            "order": 7,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndSelect",
+          "profileData": false
+        },
+        {
+          "label": "To Location",
+          "type": "BarCode",
+          "serverField": "toLocation",
+          "isgridRecord": true,
+          "action": "BarCodeScan",
+          "validationCondition": [],
+          "executeChildElement": [
+            {
+              "actionType": "variableRequest",
+              "referenceField": "item1",
+              "variableRequest": {
+                "applicationName": "AtomIQ",
+                "applicationId": "615b2bfefad7c70031cbc6ec",
+                "atomAndVariable": "jde41011allitem.itemdesc",
+                "variableId": 247,
+                "criteria": "barcode = '@@{{barcode}}@@'"
+              }
+            }
+          ],
+          "isRequired": false,
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 8,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite",
+          "profileData": false
+        },
+        {
+          "label": "Reason code",
+          "isgridRecord": false,
+          "type": "dropDown",
+          "serverField": "reasoncodedesc",
+          "action": "OnLoad",
+          "validationCondition": [],
+          "actionExecute": {
+            "actionType": "variableRequest",
+            "variableRequest": {
+              "applicationName": "AtomIQ",
+              "applicationId": "615b2bfefad7c70031cbc6ec",
+              "atomAndVariable": "jde41041itreaso.reasoncodedesc",
+              "variableId": 277,
+              "criteria": ""
+            }
+          },
+          "executeChildElement": [
+            {
+              "actionType": "atomRequest",
+              "atomRequest": {
+                "applicationName": "AtomIQ",
+                "applicationId": "615b2bfefad7c70031cbc6ec",
+                "atomIdentifier": "jde41041itreaso",
+                "atomId": 109,
+                "criteria": "reasoncodedesc = '@@{{reasoncodedesc}}@@'",
+                "responseMapping": {
+                  "Reason Code": "reasoncode"
+                }
+              }
+            }
+          ],
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 10,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndSelect"
+        },
+        {
+          "label": "Reason Code",
+          "isgridRecord": true,
+          "type": "LabeledTextBox",
+          "serverField": "reasoncode",
+          "action": "bind",
+          "validationCondition": [],
+          "isRequired": true,
+          "isParent": true,
+          "isHide": true,
+          "uiElements": {
+            "order": 11,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite"
+        }
+      ],
+      "defaultData": [
+        {
+          "qty": "",
+          "uom": "",
+          "item": ""
+        }
+      ],
+      "uiElements": {
+        "order": 10,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "",
+      "custom": ""
+    },
+    {
+      "label": "Save & Close",
+      "passGrid": true,
+      "type": "Button",
+      "serverField": "",
+      "action": "OnClick",
+      "isParent": true,
+      "isHide": false,
+      "actionExecute": {
+        "selectedFields": [
+          "remarks",
+          "frombranch",
+          "toBranch",
+          "item",
+          "fromLocation",
+          "toLocation",
+          "qty",
+          "unitofmeasure",
+          "gldate",
+          "transactiondate",
+          "reasoncode"
+        ],
+        "serviceRequest": {
+          "validation": true,
+          "valid": {
+            "requestURL": "http://129.159.74.110:9029/jderest/orchestrator/JDE_ORCH_AIQ64_InventoryTransfer1",
+            "requestmethod": "POST",
+            "isfireNforget": false,
+            "showResult": true,
+            "fireNforgetMessage": "x.userDefinedErrorText",
+            "requestBody": {
+              "FromBranchPlant": "@@{{frombranch}}@@",
+              "ToBranchPlant": "@@{{toBranch}}@@",
+              "GL_Date": "@@{{gldate}}@@",
+              "TransactionDate": "@@{{transactiondate}}@@",
+              "Explanation": "@@{{remarks}}@@",
+              "GridMapValue": "@@responseOutput@@",
+              "P4113_Version": "AIQ0001"
+            },
+            "requestHeader": [
+              {
+                "headerKey": "Content-Type",
+                "headerValue": "application/json"
+              },
+              {
+                "headerKey": "Authorization",
+                "headerValue": "Basic {{{RU.JDE.encryptedCredential}}}"
+              }
+            ]
+          }
+        },
+        "actionType": "ServiceRequest/Close"
+      },
+      "uiElements": {
+        "order": 12,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "",
+      "custom": "Click"
+    },
+    {
+      "label": "Cancel",
+      "type": "Button",
+      "serverField": "",
+      "action": "OnClick",
+      "isHide": false,
+      "isParent": true,
+      "actionExecute": {
+        "selectedFields": [
+          "item",
+          "branch",
+          "signature"
+        ],
+        "actionType": "ServiceRequest/Cancel"
+      },
+      "uiElements": {
+        "order": 13,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "",
+      "custom": "Click"
+    }
+  ]
+}

@@ -1,0 +1,333 @@
+{
+  "formTitle": "Edit Ship Sales Order",
+  "type": "object",
+  "dateFormat": "MM/dd/yyyy",
+  "formElements": [
+    {
+      "label": "OrderNumber",
+      "type": "LabeledTextBox",
+      "serverField": "ordernumber",
+      "action": "bind",
+      "validationCondition": [],
+      "isParent": true,
+      "isMultiLine": true,
+      "executeChildElement": [
+        {
+          "actionType": "atomRequest",
+          "atomRequest": {
+            "applicationName": "AtomIQ",
+            "applicationId": "615b2bfefad7c70031cbc6ec",
+            "atomIdentifier": "jde42041soshipdetail",
+            "atomId": 175,
+            "criteria": "ordernumber ='@@{{ordernumber}}@@'",
+            "responseMapping": {
+              "Item": "item",
+              "Line Num": "linenum",
+              "UOM": "uom",
+              "Qty Ordered": "qty",
+              "Row No": "rownumber",
+              "Qty to Confirm": "confirmqty"
+            }
+          }
+        }
+      ],
+      "isHide": false,
+      "uiElements": {
+        "order": 1,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "",
+      "custom": "ReadAndWrite",
+      "profileData": false,
+      "isDynamicData": true
+    },
+    {
+      "label": "Order Type",
+      "type": "LabeledTextBox",
+      "serverField": "ordertype",
+      "action": "bind",
+      "validationCondition": [],
+      "isParent": true,
+      "isHide": false,
+      "uiElements": {
+        "order": 2,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "",
+      "custom": "ReadAndWrite"
+    },
+    {
+      "label": "Company",
+      "type": "LabeledTextBox",
+      "serverField": "company",
+      "action": "bind",
+      "validationCondition": [],
+      "isParent": true,
+      "isHide": false,
+      "uiElements": {
+        "order": 3,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "",
+      "custom": "ReadAndWrite"
+    },
+    {
+      "label": "grid",
+      "type": "Array",
+      "serverField": "gridData",
+      "isReplicable": true,
+      "isRequired": false,
+      "isHide": false,
+      "action": "Bind",
+      "isParent": true,
+      "gridheaderFields": [
+        {
+          "label": "Item",
+          "isgridRecord": false,
+          "type": "LabeledTextBox",
+          "serverField": "item",
+          "action": "Bind",
+          "validationCondition": [],
+          "isRequired": true,
+          "isParent": false,
+          "isHide": false,
+          "uiElements": {
+            "order": 1,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite",
+          "isDynamicData": false,
+          "dynamicValue": ""
+        },
+        {
+          "label": "Row No",
+          "isgridRecord": true,
+          "type": "LabeledTextBox",
+          "serverField": "rownumber",
+          "action": "bind",
+          "validationCondition": [],
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 2,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite"
+        },
+        {
+          "label": "Line Num",
+          "type": "LabeledTextBox",
+          "serverField": "linenum",
+          "action": "bind",
+          "validationCondition": [],
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 3,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite"
+        },
+        {
+          "label": "Qty Ordered",
+          "type": "LabeledTextBox",
+          "serverField": "qty",
+          "action": "bind",
+          "validationCondition": [],
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 4,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite"
+        },
+        {
+          "label": "UOM",
+          "type": "LabeledTextBox",
+          "serverField": "uom",
+          "action": "bind",
+          "validationCondition": [],
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 7,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite"
+        },
+        {
+          "label": "Qty to Confirm",
+          "isgridRecord": true,
+          "type": "NumericLabeledTextBox",
+          "serverField": "confirmqty",
+          "action": "bind",
+          "validationCondition": [],
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 9,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "custom": "ReadAndWrite"
+        },
+        {
+          "label": "Confirm Flag",
+          "isgridRecord": true,
+          "type": "dropDown",
+          "showDefaultValue": true,
+          "serverField": "confirmFlag",
+          "action": "OnLoad",
+          "validationCondition": [],
+          "isRequired": true,
+          "multiSelect": false,
+          "actionExecute": {
+            "actionType": "formData",
+            "formData": [
+              {
+                "label": "Y",
+                "serviceField": "yes"
+              },
+              {
+                "label": "N",
+                "serviceField": "no"
+              }
+            ]
+          },
+          "isParent": true,
+          "isHide": false,
+          "uiElements": {
+            "order": 10,
+            "position": "",
+            "colour": "",
+            "requiredFieldColour": ""
+          },
+          "defaultValue": "",
+          "profileData": false
+        }
+      ],
+      "defaultData": [
+        {
+          "extra3": "",
+          "linenum": "",
+          "qty": "",
+          "uom": "",
+          "item": ""
+        }
+      ],
+      "uiElements": {
+        "order": 12,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "",
+      "custom": ""
+    },
+    {
+      "label": "Save & Close",
+      "passGrid": true,
+      "type": "Button",
+      "serverField": "",
+      "action": "OnClick",
+      "isRequired": false,
+      "isParent": true,
+      "isHide": false,
+      "actionExecute": {
+        "selectedFields": [
+          "ordernumber",
+          "ordertype",
+          "company",
+          "customer"
+        ],
+        "serviceRequest": {
+          "validation": true,
+          "valid": {
+            "requestURL": "http://129.159.74.110:9029/jderest/orchestrator/JDE_ORCH_AIQ64_ShipConfirmLL",
+            "requestmethod": "POST",
+            "useProxy": true,
+            "isfireNforget": false,
+            "fireNforgetMessage": "x.userDefinedErrorText",
+            "showResult": true,
+            "requestBody": {
+              "OrderNumber": "@@{{ordernumber}}@@",
+              "OrderType": "@@{{ordertype}}@@",
+              "OrderCompany": "@@{{company}}@@",
+              "P4205_Version": "AIQ0005",
+              "GridData": "@@responseOutput@@"
+            },
+            "requestHeader": [
+              {
+                "headerKey": "Content-Type",
+                "headerValue": "application/json"
+              },
+              {
+                "headerKey": "Authorization",
+                "headerValue": "Basic {{{RU.JDE.encryptedCredential}}}"
+              }
+            ]
+          }
+        },
+        "actionType": "ServiceRequest/Close"
+      },
+      "uiElements": {
+        "order": 14,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "",
+      "custom": "",
+      "isDynamicData": false,
+      "dynamicValue": ""
+    },
+    {
+      "label": "Cancel",
+      "type": "Button",
+      "serverField": "",
+      "action": "OnClick",
+      "isHide": false,
+      "isParent": true,
+      "actionExecute": {
+        "selectedFields": [
+          "item",
+          "branchPlant",
+          "signature"
+        ],
+        "actionType": "ServiceRequest/Cancel"
+      },
+      "uiElements": {
+        "order": 15,
+        "position": "",
+        "colour": "",
+        "requiredFieldColour": ""
+      },
+      "defaultValue": "",
+      "custom": "Click"
+    }
+  ]
+}

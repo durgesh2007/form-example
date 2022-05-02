@@ -1,0 +1,650 @@
+{  
+  "formTitle": "Sales Order Entry",
+    "type": "object",
+      "dateFormat": "MM/dd/yyyy",
+        "formElements": [
+          {
+            "label": "Business Unit",
+            "type": "LabeledTextBox",
+            "serverField": "businessunit",
+            "action": "bind",
+            "validationCondition": [],
+            "isParent": true,
+            "isHide": false,
+            "uiElements": {
+              "order": 1,
+              "position": "",
+              "colour": "",
+              "requiredFieldColour": ""
+            },
+            "defaultValue": "{{{UP.organization}}}",
+            "custom": "ReadAndWrite",
+            "profileData": false,
+            "isDynamicData": true
+          },
+          {
+            "label": "Sold To",
+            "type": "dropDown",
+            "serverField": "Addressnumber",
+            "action": "OnLoad",
+            "validationCondition": [],
+            "searchAndSelect": true,
+            "isRequired": true,
+            "multiSelect": false,
+            "dynamicDropdown": true,
+            "actionExecute": {
+              "actionType": "variableRequest",
+              "variableRequest": {
+                "applicationName": "AtomIQ",
+                "applicationId": "615b2bfefad7c70031cbc6ec",
+                "atomAndVariable": "jde03b001allcus.customer",
+                "variableId": 267,
+                "criteria": ""
+              }
+            },
+            "executeChildElement": [
+              {
+                "actionType": "atomRequest",
+                "atomRequest": {
+                  "applicationName": "AtomIQ",
+                  "applicationId": "615b2bfefad7c70031cbc6ec",
+                  "atomIdentifier": "jde03b001allcus",
+                  "atomId": 104,
+                  "criteria": "customerdesc ='@@{{Addressnumber}}@@'",
+                  "responseMapping": {
+                    "Sold To1": "customernumber"
+                  }
+                }
+              }
+            ],
+            "isParent": true,
+            "isHide": false,
+            "uiElements": {
+              "order": 2,
+              "position": "",
+              "colour": "",
+              "requiredFieldColour": ""
+            },
+            "defaultValue": "",
+            "custom": "ReadAndSelect",
+            "profileData": false
+          },
+          {
+            "label": "Sold To1",
+            "isgridRecord": true,
+            "type": "LabeledTextBox",
+            "serverField": "customernumber",
+            "action": "Bind",
+            "validationCondition": [],
+            "isRequired": true,
+            "isParent": false,
+            "isHide": true,
+            "uiElements": {
+              "order": 3,
+              "position": "",
+              "colour": "",
+              "requiredFieldColour": ""
+            },
+            "defaultValue": "",
+            "custom": "ReadAndWrite",
+            "isDynamicData": false,
+            "dynamicValue": ""
+          },
+          {
+            "label": "Ship To",
+            "type": "dropDown",
+            "serverField": "customername1",
+            "action": "OnLoad",
+            "validationCondition": [],
+            "searchAndSelect": true,
+            "isRequired": true,
+            "multiSelect": false,
+            "dynamicDropdown": true,
+            "actionExecute": {
+              "actionType": "variableRequest",
+              "variableRequest": {
+                "applicationName": "AtomIQ",
+                "applicationId": "615b2bfefad7c70031cbc6ec",
+                "atomAndVariable": "jde03b001allcus.customerdesc",
+                "variableId": 267,
+                "criteria": ""
+              }
+            },
+            "executeChildElement": [
+              {
+                "actionType": "atomRequest",
+                "atomRequest": {
+                  "applicationName": "AtomIQ",
+                  "applicationId": "615b2bfefad7c70031cbc6ec",
+                  "atomIdentifier": "jde03b001allcus",
+                  "atomId": 104,
+                  "criteria": "customerdesc = '@@{{customername1}}@@'",
+                  "responseMapping": {
+                    "Ship To1": "customernum"
+                  }
+                }
+              }
+            ],
+            "isParent": true,
+            "isHide": false,
+            "uiElements": {
+              "order": 4,
+              "position": "",
+              "colour": "",
+              "requiredFieldColour": ""
+            },
+            "defaultValue": "",
+            "custom": "ReadAndSelect",
+            "profileData": false
+          },
+          {
+            "label": "Ship To1",
+            "isgridRecord": true,
+            "type": "LabeledTextBox",
+            "serverField": "customernum",
+            "action": "Bind",
+            "validationCondition": [],
+            "isRequired": true,
+            "isParent": false,
+            "isHide": true,
+            "uiElements": {
+              "order": 5,
+              "position": "",
+              "colour": "",
+              "requiredFieldColour": ""
+            },
+            "defaultValue": "",
+            "custom": "ReadAndWrite",
+            "isDynamicData": false,
+            "dynamicValue": ""
+          },
+          {
+            "label": "Customer PO",
+            "type": "LabeledTextBox",
+            "serverField": "customerPO",
+            "action": "Bind",
+            "validationCondition": [],
+            "isRequired": true,
+            "isParent": false,
+            "isHide": false,
+            "uiElements": {
+              "order": 6,
+              "position": "",
+              "colour": "",
+              "requiredFieldColour": ""
+            },
+            "defaultValue": "",
+            "custom": "ReadAndWrite",
+            "isDynamicData": false,
+            "dynamicValue": ""
+          },
+          {
+            "label": "Request Date",
+            "type": "Date",
+            "serverField": "receiptDate",
+            "action": "bind",
+            "validationCondition": [
+              {
+                "conditionCheckOrder": 1,
+                "condition": "NullCheck"
+              }
+            ],
+            "isRequired": true,
+            "isParent": true,
+            "isHide": false,
+            "uiElements": {
+              "order": 7,
+              "position": "",
+              "colour": "",
+              "requiredFieldColour": ""
+            },
+            "defaultValue": "",
+            "custom": "ReadAndWrite"
+          },
+          {
+            "label": "grid",
+            "type": "Array",
+            "serverField": "gridData",
+            "isReplicable": true,
+            "isRequired": true,
+            "isHide": false,
+            "action": "Bind",
+            "isParent": true,
+            "gridheaderFields": [
+              {
+                "label": "Barcode Item",
+                "type": "BarCode",
+                "serverField": "barcode",
+                "isgridRecord": false,
+                "action": "BarCodeScan",
+                "validationCondition": [],
+                "executeChildElement": [
+                  {
+                    "actionType": "variableRequest",
+                    "referenceField": "item1",
+                    "variableRequest": {
+                      "applicationName": "AtomIQ",
+                      "applicationId": "615b2bfefad7c70031cbc6ec",
+                      "atomAndVariable": "jde41011allitem.itemdesc",
+                      "variableId": 247,
+                      "criteria": "barcode = '@@{{barcode}}@@'"
+                    }
+                  }
+                ],
+                "isRequired": false,
+                "isParent": true,
+                "isHide": false,
+                "uiElements": {
+                  "order": 1,
+                  "position": "",
+                  "colour": "",
+                  "requiredFieldColour": ""
+                },
+                "defaultValue": "",
+                "custom": "ReadAndWrite",
+                "profileData": false
+              },
+              {
+                "label": "Item Name",
+                "isgridRecord": false,
+                "showDefaultValue": true,
+                "type": "dropDown",
+                "id": "item1",
+                "serverField": "itemdropdown",
+                "action": "OnLoad",
+                "validationCondition": [],
+                "searchAndSelect": true,
+                "isRequired": true,
+                "multiSelect": false,
+                "dynamicDropdown": true,
+                "actionExecute": {
+                  "actionType": "variableRequest",
+                  "variableRequest": {
+                    "applicationName": "AtomIQ",
+                    "applicationId": "615b2bfefad7c70031cbc6ec",
+                    "atomAndVariable": "jde41011allitem.itemdesc",
+                    "variableId": 247,
+                    "criteria": ""
+                  }
+                },
+                "executeChildElement": [
+                  {
+                    "actionType": "variableRequest",
+                    "referenceField": "location1",
+                    "variableRequest": {
+                      "applicationName": "AtomIQ",
+                      "applicationId": "615b2bfefad7c70031cbc6ec",
+                      "atomAndVariable": "jde41031itemava.location",
+                      "variableId": 259,
+                      "criteria": "productdesc = '@@{{itemdropdown}}@@' and branch = '@@{{businessunit}}@@'"
+                    }
+                  },
+                  {
+                    "actionType": "atomRequest",
+                    "atomRequest": {
+                      "applicationName": "AtomIQ",
+                      "applicationId": "615b2bfefad7c70031cbc6ec",
+                      "atomIdentifier": "jde41031itemava",
+                      "atomId": 103,
+                      "criteria": "productdesc = '@@{{itemdropdown}}@@' and branch = '@@{{businessunit}}@@'",
+                      "responseMapping": {
+                        "Item": "seconditem"
+                      }
+                    }
+                  }
+                ],
+                "isParent": false,
+                "isHide": false,
+                "uiElements": {
+                  "order": 2,
+                  "position": "",
+                  "colour": "",
+                  "requiredFieldColour": ""
+                },
+                "defaultValue": "",
+                "custom": "ReadAndSelect",
+                "profileData": false
+              },
+              {
+                "label": "Item",
+                "isgridRecord": true,
+                "type": "LabeledTextBox",
+                "serverField": "seconditem",
+                "action": "Bind",
+                "validationCondition": [],
+                "isRequired": true,
+                "isParent": false,
+                "isHide": true,
+                "uiElements": {
+                  "order": 3,
+                  "position": "",
+                  "colour": "",
+                  "requiredFieldColour": ""
+                },
+                "defaultValue": "",
+                "custom": "ReadAndWrite",
+                "isDynamicData": false,
+                "dynamicValue": ""
+              },
+              {
+                "label": "Location",
+                "isgridRecord": true,
+                "showDefaultValue": true,
+                "type": "dropDown",
+                "id": "location1",
+                "serverField": "location",
+                "action": "OnLoad",
+                "validationCondition": [],
+                "searchAndSelect": true,
+                "isRequired": false,
+                "multiSelect": false,
+                "dynamicDropdown": true,
+                "actionExecute": {
+                  "actionType": "variableRequest",
+                  "variableRequest": {
+                    "applicationName": "AtomIQ",
+                    "applicationId": "615b2bfefad7c70031cbc6ec",
+                    "atomAndVariable": "jde41031itemava.location",
+                    "variableId": 259,
+                    "criteria": "productdesc = '@@{{itemdropdown}}@@' and branch = '@@{{businessunit}}@@'"
+                  }
+                },
+                "executeChildElement": [
+                  {
+                    "actionType": "atomRequest",
+                    "atomRequest": {
+                      "applicationName": "AtomIQ",
+                      "applicationId": "615b2bfefad7c70031cbc6ec",
+                      "atomIdentifier": "jde41031itemava",
+                      "atomId": 103,
+                      "criteria": "productdesc = '@@{{itemdropdown}}@@' and branch = '@@{{businessunit}}@@' and location = '@@{{location}}@@'",
+                      "responseMapping": {
+                        "Quantity Available": "availability"
+                      }
+                    }
+                  },
+                  {
+                    "actionType": "variableRequest",
+                    "referenceField": "uom1",
+                    "variableRequest": {
+                      "applicationName": "AtomIQ",
+                      "applicationId": "615b2bfefad7c70031cbc6ec",
+                      "atomAndVariable": "jde41031itemava.unitofmeasure",
+                      "variableId": 271,
+                      "criteria": "productdesc = '@@{{itemdropdown}}@@' and branch = '@@{{businessunit}}@@' and location = '@@{{location}}@@'"
+                    }
+                  }
+                ],
+                "isParent": false,
+                "isHide": false,
+                "uiElements": {
+                  "order": 4,
+                  "position": "",
+                  "colour": "",
+                  "requiredFieldColour": ""
+                },
+                "defaultValue": "",
+                "custom": "ReadAndSelect",
+                "profileData": false
+              },
+              {
+                "label": "Quantity Available",
+                "isgridRecord": false,
+                "isHide": false,
+                "type": "LabeledTextBox",
+                "validationCondition": [],
+                "action": "OnLoad",
+                "serverField": "availability",
+                "uiElements": {
+                  "order": 5,
+                  "position": "",
+                  "colour": "",
+                  "requiredFieldColour": ""
+                },
+                "custom": "ReadOnly",
+                "isDynamicData": false,
+                "dynamicValue": ""
+              },
+              {
+                "label": "Quantity Ordered",
+                "isgridRecord": true,
+                "type": "NumericLabeledTextBox",
+                "isRequired": true,
+                "isWarningType": true,
+                "serverField": "qty",
+                "action": "bind",
+                "validationCondition": [
+                  {
+                    "conditionCheckOrder": 1,
+                    "condition": "GreaterCheck",
+                    "max": "@@{{availability}}@@",
+                    "message": "Entered quantity should not be greater than Available Quantity"
+                  }
+                ],
+                "isParent": true,
+                "isHide": false,
+                "uiElements": {
+                  "order": 6,
+                  "position": "",
+                  "colour": "",
+                  "requiredFieldColour": ""
+                },
+                "defaultValue": "",
+                "custom": "ReadAndWrite"
+              },
+              {
+                "label": "UOM",
+                "id": "uom1",
+                "isgridRecord": true,
+                "type": "dropDown",
+                "showDefaultValue": true,
+                "serverField": "unitofmeasure",
+                "action": "OnLoad",
+                "validationCondition": [],
+                "searchAndSelect": true,
+                "isRequired": false,
+                "multiSelect": false,
+                "dynamicDropdown": true,
+                "actionExecute": {
+                  "actionType": "variableRequest",
+                  "variableRequest": {
+                    "applicationName": "AtomIQ",
+                    "applicationId": "615b2bfefad7c70031cbc6ec",
+                    "atomAndVariable": "jde41031itemava.unitofmeasure",
+                    "variableId": 271,
+                    "criteria": "productdesc ='@@{{itemdropdown}}@@' and branch = '@@{{businessunit}}@@' and location = '@@{{location}}@@'"
+                  }
+                },
+                "executeChildElement": [],
+                "isParent": false,
+                "isHide": true,
+                "uiElements": {
+                  "order": 7,
+                  "position": "",
+                  "colour": "",
+                  "requiredFieldColour": ""
+                },
+                "defaultValue": "",
+                "custom": "ReadAndWrite",
+                "isDynamicData": false,
+                "dynamicValue": ""
+              }
+            ],
+            "defaultData": [
+              {
+                "qty": "",
+                "uom": "",
+                "item": ""
+              }
+            ],
+            "uiElements": {
+              "order": 7,
+              "position": "",
+              "colour": "",
+              "requiredFieldColour": ""
+            },
+            "defaultValue": "",
+            "custom": ""
+          },
+          {
+            "label": "Signature",
+            "type": "Signature",
+            "serverField": "signature",
+            "action": "bind",
+            "validationCondition": [],
+            "isParent": true,
+            "isHide": true,
+            "uiElements": {
+              "order": 8,
+              "position": "",
+              "colour": "",
+              "requiredFieldColour": ""
+            },
+            "defaultValue": "-",
+            "custom": "ReadAndWrite",
+            "profileData": false
+          },
+          {
+            "label": "Save & Add",
+            "passGrid": true,
+            "type": "Button",
+            "serverField": "",
+            "action": "OnClick",
+            "isRequired": false,
+            "isParent": true,
+            "isHide": false,
+            "actionExecute": {
+              "selectedFields": [
+                "businessunit",
+                "customernumber",
+                "customernum",
+                "customerPO",
+                "receiptDate",
+                "availability",
+                "gridData"
+              ],
+              "serviceRequest": {
+                "validation": true,
+                "valid": {
+                  "requestURL": "http://129.159.74.110:9029/jderest/orchestrator/JDE_ORCH_AIQ64_CreateSalesOrder",
+                  "requestmethod": "POST",
+                  "isfireNforget": false,
+                  "fireNforgetMessage": "x.userDefinedErrorText",
+                  "showResult": true,
+                  "requestBody": {
+                    "Business_Unit": "@@{{businessunit}}@@",
+                    "Sold_To_Address_Number": "@@{{customernumber}}@@",
+                    "Ship_To_Address_Number": "@@{{customernum}}@@",
+                    "P4210_Version": "ZJDE0001",
+                    "Customer_PO": "@@{{customerPO}}@@",
+                    "Requested_Date": "@@{{receiptDate}}@@",
+                    "GridMapValue": "@@responseOutput@@"
+                  },
+                  "requestHeader": [
+                    {
+                      "headerKey": "Content-Type",
+                      "headerValue": "application/json"
+                    },
+                    {
+                      "headerKey": "Authorization",
+                      "headerValue": "Basic {{{RU.JDE.encryptedCredential}}}"
+                    }
+                  ]
+                }
+              },
+              "actionType": "ServiceRequest"
+            },
+            "uiElements": {
+              "order": 9,
+              "position": "",
+              "colour": "",
+              "requiredFieldColour": ""
+            },
+            "defaultValue": "",
+            "custom": "",
+            "isDynamicData": false,
+            "dynamicValue": ""
+          },
+          {
+            "label": "Save & Close",
+            "passGrid": true,
+            "type": "Button",
+            "serverField": "",
+            "action": "OnClick",
+            "isRequired": false,
+            "isParent": true,
+            "isHide": false,
+            "actionExecute": {
+              "selectedFields": [
+                "businessunit",
+                "customernumber",
+                "customernum",
+                "customerPO",
+                "receiptDate",
+                "availability",
+                "gridData"
+              ],
+              "serviceRequest": {
+                "validation": true,
+                "valid": {
+                  "requestURL": "http://129.159.74.110:9029/jderest/orchestrator/JDE_ORCH_AIQ64_CreateSalesOrder",
+                  "requestmethod": "POST",
+                  "isfireNforget": false,
+                  "fireNforgetMessage": "x.userDefinedErrorText",
+                  "showResult": false,
+                  "requestBody": {
+                    "Business_Unit": "@@{{businessunit}}@@",
+                    "Sold_To_Address_Number": "@@{{customernumber}}@@",
+                    "Ship_To_Address_Number": "@@{{customernum}}@@",
+                    "P4210_Version": "ZJDE0001",
+                    "Customer_PO": "@@{{customerPO}}@@",
+                    "Requested_Date": "@@{{receiptDate}}@@",
+                    "GridMapValue": "@@responseOutput@@"
+                  },
+                  "requestHeader": [
+                    {
+                      "headerKey": "Content-Type",
+                      "headerValue": "application/json"
+                    },
+                    {
+                      "headerKey": "Authorization",
+                      "headerValue": "Basic {{{RU.JDE.encryptedCredential}}}"
+                    }
+                  ]
+                }
+              },
+              "actionType": "ServiceRequest/Close"
+            },
+            "uiElements": {
+              "order": 10,
+              "position": "",
+              "colour": "",
+              "requiredFieldColour": ""
+            },
+            "defaultValue": "",
+            "custom": "",
+            "isDynamicData": false,
+            "dynamicValue": ""
+          },
+          {
+            "label": "Cancel",
+            "type": "Button",
+            "serverField": "",
+            "action": "OnClick",
+            "isHide": false,
+            "isParent": true,
+            "actionExecute": {
+              "selectedFields": [],
+              "actionType": "ServiceRequest/Cancel"
+            },
+            "uiElements": {
+              "order": 11,
+              "position": "",
+              "colour": "",
+              "requiredFieldColour": ""
+            },
+            "defaultValue": "",
+            "custom": "Click"
+          }
+        ]
+}
